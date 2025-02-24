@@ -1,0 +1,135 @@
+<div class="container mt-4">
+  <h2>Form</h2>
+  <form (ngSubmit)="calculateAverage()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        [(ngModel)]="name"
+        name="name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="grade1" class="form-label">1st Grade:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="grade1"
+        [(ngModel)]="grade1"
+        name="grade1"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="grade2" class="form-label">2nd Grade:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="grade2"
+        [(ngModel)]="grade2"
+        name="grade2"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">
+      {{ editingIndex !== null ? "Save" : "Register" }}
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary ms-2"
+      *ngIf="editingIndex !== null"
+      (click)="resetForm()"
+    >
+      Cancel
+    </button>
+  </form>
+
+  <div *ngIf="students.length > 0" class="mt-4">
+    <h3>Students List</h3>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>1st Grade</th>
+          <th>2nd Grade</th>
+          <th>Average</th>
+          <th>Status</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; let i = index">
+          <td>{{ student.name }}</td>
+          <td>{{ student.grade1 }}</td>
+          <td>{{ student.grade2 }}</td>
+          <td>{{ student.average.toFixed(2) }}</td>
+          <td
+            [ngClass]="{
+              'text-success': student.average >= 6,
+              'text-danger': student.average < 6
+            }"
+          >
+            {{ student.average >= 6 ? "Approved" : "Failed" }}
+          </td>
+          <td>
+            <button
+              class="btn btn-warning btn-sm me-2"
+              (click)="editStudent(i)"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="confirmDelete(i)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal de confirmação de deleção -->
+<div
+  *ngIf="showModal"
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block; background-color: rgba(0, 0, 0, 0.5)"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Deletion</h5>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="cancelDelete()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete the student "{{
+            studentNameToDelete
+          }}"?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="cancelDelete()"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="deleteStudent()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
