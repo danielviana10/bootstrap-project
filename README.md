@@ -1,6 +1,6 @@
 # Angular Challenge
 
-Simple project to simule a schoolar grade.
+Simple project to simulate a school series.
 
 # Technologies
 
