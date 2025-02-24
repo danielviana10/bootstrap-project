@@ -49,48 +49,50 @@
 
   <div *ngIf="students.length > 0" class="mt-4">
     <h3>Students List</h3>
-    <table class="table table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th>Name</th>
-          <th>1st Grade</th>
-          <th>2nd Grade</th>
-          <th>Average</th>
-          <th>Status</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of students; let i = index">
-          <td>{{ student.name }}</td>
-          <td>{{ student.grade1 }}</td>
-          <td>{{ student.grade2 }}</td>
-          <td>{{ student.average.toFixed(2) }}</td>
-          <td
-            [ngClass]="{
-              'text-success': student.average >= 6,
-              'text-danger': student.average < 6
-            }"
-          >
-            {{ student.average >= 6 ? "Approved" : "Failed" }}
-          </td>
-          <td>
-            <button
-              class="btn btn-warning btn-sm me-2"
-              (click)="editStudent(i)"
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>1st Grade</th>
+            <th>2nd Grade</th>
+            <th>Average</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td>{{ student.name }}</td>
+            <td>{{ student.grade1 }}</td>
+            <td>{{ student.grade2 }}</td>
+            <td>{{ student.average.toFixed(2) }}</td>
+            <td
+              [ngClass]="{
+                'text-success': student.average >= 6,
+                'text-danger': student.average < 6
+              }"
             >
-              Edit
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-danger btn-sm" (click)="confirmDelete(i)">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              {{ student.average >= 6 ? "Approved" : "Failed" }}
+            </td>
+            <td>
+              <button
+                class="btn btn-warning btn-sm me-2"
+                (click)="editStudent(i)"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="confirmDelete(i)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
